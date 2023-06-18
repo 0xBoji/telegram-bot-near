@@ -1,0 +1,14 @@
+{
+  "name": "heroes_events",
+  "version": "1.0.0",
+  "description": "Listen all events of heroes contract",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "anhtn512",
+  "license": "ISC",
+  "dependencies": {
+    "near-api-js": "^2.1.4"
+  }
+}
