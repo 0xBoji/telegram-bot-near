@@ -1,15 +1,19 @@
 const nearAPI = require('near-api-js');
+// const config = require('./config');
+// NEAR_RPC_API = config.NEAR_RPC_API;
+// follow_address = config.follow_address;
 
+const { NEAR_RPC_API, follow_address } = require('./config.js');
+
+function isContractFollow(data) {
+  if (follow_address.includes(data['signer_id']) || follow_address.includes(data['receiver_id']))
+    return true;
+  return false;
+}
 
 var latestBlockHeight = 0;
 
 async function listenLatestBlock() {
-  // Create a NEAR connection
-  const near = await nearAPI.connect({
-    networkId: 'testnet', // Specify the network ID (e.g., 'testnet' for the NEAR TestNet)
-    keyStore: new nearAPI.keyStores.InMemoryKeyStore(), // Use the default in-memory key store
-    nodeUrl: 'https://rpc.testnet.near.org', // Specify the NEAR RPC node URL
-  });
 
   // Create a provider and get the latest block repeatedly
   const provider = new nearAPI.providers.JsonRpcProvider('https://rpc.testnet.near.org');
@@ -20,24 +24,12 @@ async function listenLatestBlock() {
       return;
     }
     latestBlockHeight = height;
-    // console.log(latestBlock);
     const chunks = latestBlock.chunks;
-    console.log('Latest Block: ' + height);
     for (const chunk of chunks) {
       const chunkTemp = await provider.chunk(chunk.chunk_hash);
-      // console.log(chunkTemp);
       const transactions = chunkTemp.transactions;
-      // const receipts = chunkTemp.receipts;
-      // console.log(JSON.stringify(receipts));
       if (transactions.length > 0) {
         for (const transaction of transactions) {
-          // console.log('transaction hash: ' + transaction.hash);
-          // console.log(transaction);
-          // console.log(transaction.actions);
-          // const args = atob(transaction.actions.args);
-          // const method_name = transaction.actions.method_name;
-          // console.log('args: ' + args);
-          // console.log('method name: ' + method_name);
           const actionObject = transaction.actions[0];
           const action_type = Object.keys(actionObject)[0];
           const detail = actionObject[action_type];
@@ -61,13 +53,16 @@ async function listenLatestBlock() {
           } else {
             temp.action_detail = detail;
           }
-          console.log(temp);
-          console.log(JSON.stringify(temp.action_detail.args,null,2));
+          if (isContractFollow(temp)) {
+            console.log('Latest Block: ' + height);
+            console.log(temp);
+            console.log(JSON.stringify(temp.action_detail.args,null,2));
+            console.log('==============================')
+          }
         }
       }
     }
-    console.log('+++++++++++++++++++++')
-  }, 1000); // Poll every 5 seconds (adjust the interval as needed)
+  }, 1000); // Poll every 1 seconds (adjust the interval as needed)
 }
 
 // Call the function
