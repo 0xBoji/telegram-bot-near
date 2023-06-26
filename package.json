@@ -9,6 +9,7 @@
   "author": "anhtn512",
   "license": "ISC",
   "dependencies": {
-    "near-api-js": "^2.1.4"
+    "near-api-js": "^2.1.4",
+    "request": "^2.88.2"
   }
 }
