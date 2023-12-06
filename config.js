@@ -1,0 +1,2 @@
+const BOT_TOKEN = '6349257220:AAEEuBDgDlJ_6h3vI_VzjCcW4XJR7vKsqZw';
+const MAIN_CHANNEL = '@HeroesBUILD';
