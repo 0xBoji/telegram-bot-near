@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "author": "anhtn512",
+  "author": "pichtranst123",
   "license": "ISC",
   "dependencies": {
     "near-api-js": "^2.1.4",
