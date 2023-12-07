@@ -25,9 +25,8 @@ function markdownParser(text) {
 }
 
 function createLinkhash(hash) {
-    const shortHash = '...' + hash.slice(-6);
     const link = `https://nearblocks.io/txns/${hash}`;
-    const message = `[${shortHash}](${link})`;
+    const message = `(${link})`;
     return message;
 }
 
