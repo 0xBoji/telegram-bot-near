@@ -1,9 +1,10 @@
 const express = require('express');
 const { Telegraf } = require('telegraf');
 const bodyParser = require('body-parser');
-
 const BOT_TOKEN = '6349257220:AAEEuBDgDlJ_6h3vI_VzjCcW4XJR7vKsqZw';
 const MAIN_CHANNEL = '@HeroesBUILD';
+
+const { handleTransaction } = require('./util'); 
 
 const app = express();
 const bot = new Telegraf(BOT_TOKEN);
@@ -18,7 +19,6 @@ bot.on('text', (ctx) => {
 app.post('/push', (req, res) => {
     try {
         const tx = req.body;
-        // Assuming handleTransaction is defined elsewhere in your code
         handleTransaction(tx);
         bot.telegram.sendMessage(MAIN_CHANNEL, 'Transaction handled successfully');
         res.status(200).send('Transaction handled successfully');
@@ -30,6 +30,10 @@ app.post('/push', (req, res) => {
 
 app.get('/', (req, res) => {
     res.send('Hello World');
+});
+
+app.get('/push', (req, res) => {
+    res.send('push test');
 });
 
 bot.launch();
