@@ -4,7 +4,13 @@ const request = require('request');
 // NEAR_RPC_API = config.NEAR_RPC_API;
 // follow_address = config.follow_address;
 
-const { NEAR_RPC_API, follow_address, push_url } = require('./config.js');
+const config = {
+  NEAR_RPC_API: 'https://rpc.testnet.near.org',
+  follow_address: ['dev-1684410668019-65962341802455'],
+  push_url: 'http://localhost:3000/push'
+};
+
+const { NEAR_RPC_API, follow_address, push_url } = config;
 
 function isContractFollow(transaction) {
   if (follow_address.includes(transaction['signer_id']) || follow_address.includes(transaction['receiver_id']))
