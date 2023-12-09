@@ -2,7 +2,6 @@ const express = require('express');
 const { Telegraf } = require('telegraf');
 const bodyParser = require('body-parser');
 const BOT_TOKEN = '6349257220:AAEEuBDgDlJ_6h3vI_VzjCcW4XJR7vKsqZw';
-const MAIN_CHANNEL = '@HeroesBUILD';
 
 const { handleTransaction } = require('./util'); 
 
@@ -15,6 +14,8 @@ app.use(bodyParser.urlencoded({ extended: true }));
 bot.on('text', (ctx) => {
     ctx.reply('Received your message: ' + ctx.message.text);
 });
+
+
 
 app.post('/push', (req, res) => {
     try {
@@ -33,7 +34,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/push', (req, res) => {
-    res.send('Hello World');
+    res.send('push test');
 });
 
 bot.launch();

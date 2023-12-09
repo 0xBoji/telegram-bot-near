@@ -25,7 +25,7 @@ function markdownParser(text) {
 }
 
 function createLinkhash(hash) {
-    const link = `https://nearblocks.io/txns/${hash}`;
+    const link = `https://testnet.nearblocks.io/txns/${hash}`;
     const message = `(${link})`;
     return message;
 }
